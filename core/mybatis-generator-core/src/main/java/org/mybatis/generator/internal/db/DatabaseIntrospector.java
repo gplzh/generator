@@ -128,6 +128,11 @@ public class DatabaseIntrospector {
                 short keySeq = rs.getShort("KEY_SEQ"); //$NON-NLS-1$
                 keyColumns.put(keySeq, columnName);
             }
+
+            GeneratedKey gk = introspectedTable.getGeneratedKey();
+            if(gk != null){
+                introspectedTable.addPrimaryKeyColumn(gk.getColumn());
+            }
             
             for (String columnName : keyColumns.values()) {
                 introspectedTable.addPrimaryKeyColumn(columnName);
